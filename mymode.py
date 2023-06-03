@@ -6,8 +6,9 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-# import tensorflow_addons as tfa
+import tensorflow_addons as tfa
 import matplotlib.pyplot as plt
+import cv2
 
 class Patches(layers.Layer):
     def __init__(self, patch_size):
@@ -28,20 +29,28 @@ class Patches(layers.Layer):
         return patches
 
 
-image_size = 72
-patch_size = 4
+image_size = 74
+patch_size = 6
 
 
-image_path  = "images/urdu.jpeg"
+#image_path  = "images/urdu.jpeg"
 image_path2  = "images/cat.jpeg"
-tf_image = Image.open(image_path)
-tf_image2 = Image.open(image_path2)
-tf_image = tf_image.resize((792, image_size))
+tf_image_cat = Image.open(image_path2)
+#tf_image2 = Image.open(image_path2)
+tf_image_cat_1 = tf_image_cat.resize((image_size, image_size))
 
+# im = cv2.imread(image_path2)
+# print(type(im))
+#print(im.shape)
+# print(type(im.shape))
+
+# channels = image_path2.split()
+# num_channels = len(channels)
+# print("Number of channels:", num_channels)
 
 
 plt.figure(figsize=(4, 4))
-image = tf_image
+image = tf_image_cat_1
 plt.imshow(image)
 plt.axis("off")
 print(image.size)
@@ -49,10 +58,10 @@ print(image.size)
 # resized_image = tf.image.resize(
 #     tf.convert_to_tensor([image]), size=(image_size, image_size)
 # )
-tensor_4d = tf.expand_dims(tf_image, axis=0)
+tensor_4d = tf.expand_dims(tf_image_cat_1, axis=0)
 patches = Patches(patch_size)(tensor_4d)
 print(type(patches))
-print(patches.shape)
+print(tensor_4d.shape)
 
 print(f"Image size: {image_size} X {image_size}")
 print(f"Patch size: {patch_size} X {patch_size}")
