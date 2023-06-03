@@ -4,3 +4,5 @@ timm
 fvcore
 einops
 submitit
+opencv-python
+tensorflow

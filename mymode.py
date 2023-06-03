@@ -28,15 +28,15 @@ class Patches(layers.Layer):
         return patches
 
 
-image_size = 72
-patch_size = 4
+image_size = 16
+patch_size = 8
 
 
-image_path  = "images/urdu.jpeg"
+# image_path  = "images/urdu.jpeg"
 image_path2  = "images/cat.jpeg"
-tf_image = Image.open(image_path)
+# tf_image = Image.open(image_path)
 tf_image2 = Image.open(image_path2)
-tf_image = tf_image.resize((792, image_size))
+tf_image = tf_image2.resize((512, image_size))
 
 
 
@@ -60,9 +60,14 @@ print(f"Patches per image: {patches.shape[1]}")
 print(f"Elements per patch: {patches.shape[-1]}")
 
 n = int(np.sqrt(patches.shape[1]))
-plt.figure(figsize=(4, 4))
+plt.figure(figsize=(18, 4))
 for i, patch in enumerate(patches[0]):
-    ax = plt.subplot(n, n, i + 1)
+    ax = plt.subplot(27, n, i + 1)
     patch_img = tf.reshape(patch, (patch_size, patch_size, 3))
     plt.imshow(patch_img.numpy().astype("uint8"))
     plt.axis("off")
+
+
+# patch_block = patches[0][10]
+# patch_img = tf.reshape(patch_block, (patch_size, patch_size, 3))
+# plt.imshow(patch_img.numpy().astype("uint8"))
